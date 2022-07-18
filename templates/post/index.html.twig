@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dernières publications{% endblock %}
+
+{% block body %}
+<div>
+    <h1>Dernières publications</h1>
+    <ul>
+        {% for post in posts %}
+            {# Attention, fonctionne comme un foreach en PHP #}
+            <li>{{ post.title }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
