@@ -44,4 +44,16 @@ class HelloWorldController extends AbstractController
 
         return $response;
     }
+
+    /**
+     * @Route("/hello/pratical", name="app_hello_practical")
+     */
+    public function practical1(Request $request): Response
+    {
+        $currentParam = $request->query->get('param');
+        $previousParam = $request->getSession()->get('param');
+        $request->getSession()->set('param', $currentParam);
+
+        return new Response('<ul><li>Valeur courante:'.$currentParam.'</li><li>'.$previousParam.'</li></ul></body>');
+    }
 }
