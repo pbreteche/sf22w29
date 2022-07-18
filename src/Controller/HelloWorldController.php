@@ -26,6 +26,16 @@ class HelloWorldController extends AbstractController
     {
         dump($request->getUri());
 
+        // accès à la query-string ($_GET)
+        $langParam = $request->query->get('lang', 'fr');
+
+        // accès aux données de formulaire ($_POST)
+        $langParam = $request->request->get('lang', 'fr');
+        $request->files->get('my-file');
+        $request->getSession()->get('session-key');
+        $request->headers->get('Accept-language');
+        $request->getPreferredLanguage(['en-US', 'fr']);
+
         $response = new Response('ceci est du texte plat', Response::HTTP_OK, [
             'Content-type' => 'text/plain',
         ]);
