@@ -1,0 +1,13 @@
+table.data-list {
+    width: 100%;
+}
+
+table.data-list tbody>tr:nth-child(odd) {
+    background: #edc;
+}
+
+table.data-list td {
+    border-top: 1px solid black;
+    border-collapse: collapse;
+    padding: .25em;
+}
