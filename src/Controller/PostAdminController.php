@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,8 +33,16 @@ class PostAdminController extends AbstractController
         $post = new Post();
         $form = $this
             ->createFormBuilder($post)
-            ->add('title')
-            ->add('body')
+            ->add('title', null, [
+                'label' => 'Titre',
+                'help' => 'Définir un titre précis et non-ambigüe.'
+            ])
+            ->add('body', TextareaType::class, [
+                'attr' => [
+                    'cols' => 60,
+                    'rows' => 15,
+                ],
+            ])
             ->getForm()
         ;
 
