@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
@@ -19,11 +20,14 @@ class Post
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(min=5, max=70)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $body;
 
@@ -71,5 +75,13 @@ class Post
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * @Assert\IsTrue(message="Body should be twice longer than title.")
+     */
+    public function isBodyTwiceLongerThanTitle(): bool
+    {
+        return mb_strlen($this->body) / mb_strlen($this->title) > 2;
     }
 }
