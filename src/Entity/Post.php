@@ -36,6 +36,11 @@ class Post
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class)
+     */
+    private $categorizedBy;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,5 +88,17 @@ class Post
     public function isBodyTwiceLongerThanTitle(): bool
     {
         return mb_strlen($this->body) / mb_strlen($this->title) > 2;
+    }
+
+    public function getCategorizedBy(): ?Category
+    {
+        return $this->categorizedBy;
+    }
+
+    public function setCategorizedBy(?Category $categorizedBy): self
+    {
+        $this->categorizedBy = $categorizedBy;
+
+        return $this;
     }
 }
