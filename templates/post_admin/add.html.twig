@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form(create_form) }}
+    {{ form_start(create_form) }}
+    {{ form_widget(create_form) }}
+    <button>Publier</button>
+    {{ form_end(create_form) }}
 {% endblock %}
