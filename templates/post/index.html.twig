@@ -11,5 +11,11 @@
             <li>{{ post.title }}</li>
         {% endfor %}
     </ul>
+    <nav>
+        <h2>Pages</h2>
+        <ul>
+            <li><a href="{{ path('app_post_index', {page: 1}) }}">1</a></li>
+        </ul>
+    </nav>
 </div>
 {% endblock %}
