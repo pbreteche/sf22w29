@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,21 +33,7 @@ class PostAdminController extends AbstractController
     public function add(Request $request, PostRepository $repository): Response
     {
         $post = new Post();
-        $form = $this
-            ->createFormBuilder($post)
-            ->add('title', null, [
-                'label' => 'Titre',
-                'help' => 'Définir un titre précis et non-ambigüe.'
-            ])
-            ->add('body', TextareaType::class, [
-                'attr' => [
-                    'cols' => 60,
-                    'rows' => 15,
-                ],
-            ])
-            ->getForm()
-        ;
-
+        $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,21 +53,7 @@ class PostAdminController extends AbstractController
      */
     public function update(Post $post, Request $request, EntityManagerInterface $manager): Response
     {
-        $form = $this
-            ->createFormBuilder($post)
-            ->add('title', null, [
-                'label' => 'Titre',
-                'help' => 'Définir un titre précis et non-ambigüe.'
-            ])
-            ->add('body', TextareaType::class, [
-                'attr' => [
-                    'cols' => 60,
-                    'rows' => 15,
-                ],
-            ])
-            ->getForm()
-        ;
-
+        $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
