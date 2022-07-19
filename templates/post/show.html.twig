@@ -4,6 +4,7 @@
 <article>
     <h1>{{ post.title }}</h1>
     <div>Créé le {{ post.createdAt | date('m/d/Y') }}</div>
+    <div>Catégorie : {{ post.categorizedBy.name | default('sans') }}</div>
     <div>{{ post.body }}</div>
 </article>
 {% endblock %}
