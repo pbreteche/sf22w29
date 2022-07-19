@@ -32,4 +32,25 @@ class PostController extends AbstractController
             'page' => $pageNumber,
         ]);
     }
+
+    /**
+     * @Route("/post/{id}", requirements={"id": "\d+"})
+     */
+    public function show(int $id, PostRepository $repository)
+    {
+        $post = $repository->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('Post id not found in database.');
+        }
+
+        /* Exemple de redirection
+        return $this->redirect($this->generateUrl('app_post_index'),  Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_post_index', [],  Response::HTTP_SEE_OTHER);
+        */
+
+        return $this->render('post/show.html.twig', [
+            'post' => $post,
+        ]);
+    }
 }

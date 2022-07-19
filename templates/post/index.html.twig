@@ -8,7 +8,7 @@
     <ul>
         {% for post in posts %}
             {# Attention, fonctionne comme un foreach en PHP #}
-            <li>{{ post.title }}</li>
+            <li><a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title }}</a></li>
         {% endfor %}
     </ul>
     {% if max > 1 %}
