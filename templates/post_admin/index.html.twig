@@ -9,12 +9,15 @@
 
 <table class="data-list">
     <thead>
-    <tr><th>id</th><th>Titre</th><th>Date de création</th></tr>
+    <tr><th>id</th><th>Titre</th><th>Date de création</th><th></th></tr>
     </thead>
 
     <tbody>
     {% for post in posts %}
-        <tr><td>{{ post.id }}</td><td>{{ post.title }}</td><td>{{ post.createdAt | date('Y-m-d') }}</td></tr>
+        <tr>
+            <td>{{ post.id }}</td><td>{{ post.title }}</td><td>{{ post.createdAt | date('Y-m-d') }}</td>
+            <td><a href="{{ path('app_postadmin_update', {id: post.id}) }}">Modifier</a></td>
+        </tr>
     {% endfor %}
     </tbody>
 </table>
