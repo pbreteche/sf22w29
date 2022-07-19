@@ -11,11 +11,23 @@
             <li>{{ post.title }}</li>
         {% endfor %}
     </ul>
+    {% if max > 1 %}
     <nav>
         <h2>Pages</h2>
         <ul>
-            <li><a href="{{ path('app_post_index', {page: 1}) }}">1</a></li>
+            {% for i in 1..max %}
+            <li>
+                {% if i == page %}
+                    {{ i }}
+                {% else %}
+                <a href="{{ path('app_post_index', {p: i}) }}">
+                    {{ i }}
+                </a>
+                {% endif %}
+            </li>
+            {% endfor %}
         </ul>
     </nav>
+    {% endif %}
 </div>
 {% endblock %}
