@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Post;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,6 +24,12 @@ class PostType extends AbstractType
                     'cols' => 60,
                     'rows' => 15,
                 ],
+            ])
+            ->add('categorizedBy', EntityType::class, [
+                'placeholder' => '-',
+                'required' => false,
+                'choice_label' => 'name',
+                'class' => Category::class,
             ])
         ;
 
