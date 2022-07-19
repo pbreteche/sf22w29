@@ -9,12 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/post", methods="GET")
+ */
 class PostController extends AbstractController
 {
     const POST_LIMIT = 2;
 
     /**
-     * @Route("/post")
+     * @Route("/")
      */
     public function index(Request $request, PostRepository $postRepository): Response
     {
@@ -35,7 +38,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}", requirements={"id": "\d+"})
+     * @Route("/{id}", requirements={"id": "\d+"})
      */
     public function show(Post $post): Response
     {
