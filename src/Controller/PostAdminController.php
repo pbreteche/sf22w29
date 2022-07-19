@@ -39,6 +39,7 @@ class PostAdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setCreatedAt(new \DateTimeImmutable());
             $repository->add($post, true);
+            $this->addFlash('success', 'Une nouvelle publication a été enregistrée.');
 
             return $this->redirectToRoute('app_postadmin_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,6 +59,7 @@ class PostAdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush($post);
+            $this->addFlash('success', 'Une publication a été mise-à-jour.');
 
             return $this->redirectToRoute('app_postadmin_index', [], Response::HTTP_SEE_OTHER);
         }
