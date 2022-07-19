@@ -12,18 +12,14 @@
         {% endfor %}
     </ul>
     {% if max > 1 %}
-    <nav>
+    <nav class="pagination">
         <h2>Pages</h2>
         <ul>
             {% for i in 1..max %}
             <li>
-                {% if i == page %}
-                    {{ i }}
-                {% else %}
-                <a href="{{ path('app_post_index', {p: i}) }}">
+                <a {% if i != page %}href="{{ path('app_post_index', {p: i}) }}"{% endif %}>
                     {{ i }}
                 </a>
-                {% endif %}
             </li>
             {% endfor %}
         </ul>

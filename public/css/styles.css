@@ -1,0 +1,11 @@
+.pagination ul {
+    list-style-type: none;
+    padding-left: 0;
+    display: flex;
+}
+
+.pagination a {
+    color: inherit;
+    display: inline-block;
+    padding: .5em 1em;
+}
