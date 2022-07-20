@@ -8,11 +8,10 @@
     <div>{{ post.body }}</div>
 </article>
 <div class="side-column">
-    {{ render(controller('App\\Controller\\PostController::indexSameCategory', {post: post})) }}
+    {{ render_hinclude(controller('App\\Controller\\PostController::indexSameCategory', {post: post.id})) }}
 </div>
 {% endblock %}
 
 {% block title %}
 {{ post.title }}
 {% endblock %}
-
