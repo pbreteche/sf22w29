@@ -43,6 +43,7 @@ class PostType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Post::class,
             'with_creation' => false,
+            'validation_groups' => ['draft', 'Default'],
         ]);
     }
 }

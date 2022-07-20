@@ -23,8 +23,8 @@ class Post
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(min=5, max=70)
-     * @WellFormedTitle
+     * @Assert\Length(min=5, max=70, groups="published")
+     * @WellFormedTitle(groups={"draft", "published"})
      */
     private $title;
 
