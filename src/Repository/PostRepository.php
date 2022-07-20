@@ -2,10 +2,8 @@
 
 namespace App\Repository;
 
-use App\Entity\Category;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PostRepository extends ServiceEntityRepository
 {
+    const POST_LIMIT = 5;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
@@ -69,6 +69,36 @@ class PostRepository extends ServiceEntityRepository
            ->setParameter('pattern', $needle.'%')
            ->getResult()
        ;
+    }
+
+    /**
+     * @return Post[]
+     */
+    public function findLatest(int $page, ?int &$maxPage = null)
+    {
+        $postsCount = $this->count([]);
+        $maxPage = ceil($postsCount / self::POST_LIMIT);
+        if (0 > $page || $maxPage < $page) {
+            $page = 1;
+        }
+        $offset = ($page - 1) * self::POST_LIMIT;
+        return
+            $this->createQueryBuilder('post')
+            ->addSelect('category')
+            ->leftJoin('post.categorizedBy', 'category')
+            ->setMaxResults(self::POST_LIMIT)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function createQueryBuilder($alias, $indexBy = null)
+    {
+        return
+            parent::createQueryBuilder($alias, $indexBy)
+            ->orderBy($alias.'.createdAt', 'DESC')
+        ;
     }
 
 //    /**

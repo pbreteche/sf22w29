@@ -11,7 +11,7 @@
     <ul>
         {% for post in posts %}
             {# Attention, fonctionne comme un foreach en PHP #}
-            <li><a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title }}</a></li>
+            <li><a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title }}</a> ({{ post.categorizedBy.name|default }})</li>
         {% else %}
             <li>Pas de publication actuellement</li>
         {% endfor %}
