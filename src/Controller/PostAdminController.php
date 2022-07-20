@@ -37,7 +37,6 @@ class PostAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post->setCreatedAt(new \DateTimeImmutable());
             $repository->add($post, true);
             $this->addFlash('success', 'Une nouvelle publication a été enregistrée.');
 

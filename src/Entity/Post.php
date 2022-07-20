@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Post
 {
@@ -75,13 +76,6 @@ class Post
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     /**
      * @Assert\IsTrue(message="Body should be twice longer than title.")
      */
@@ -100,5 +94,13 @@ class Post
         $this->categorizedBy = $categorizedBy;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setInitialCreatedAt()
+    {
+        $this->createdAt = new \DateTimeImmutable();
     }
 }
