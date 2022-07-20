@@ -34,8 +34,22 @@ class PostController extends AbstractController
      */
     public function show(Post $post): Response
     {
+        // Non utilisé, juste pour l'exemple
+        $subResponse = $this->forward(self::class.'::indexSameCategory', [
+            'post' => $post,
+        ]);
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
+        ]);
+    }
+
+    public function indexSameCategory(Post $post, PostRepository $repository)
+    {
+        $posts = $repository->sameCategory($post);
+
+        return $this->render('post/index_same_category.html.twig', [
+            'posts' => $posts,
         ]);
     }
 }

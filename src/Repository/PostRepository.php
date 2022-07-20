@@ -93,6 +93,31 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Post[]
+     */
+    public function sameCategory(Post $post)
+    {
+        $qb = $this->createQueryBuilder('post');
+
+        if ($post->getCategorizedBy()) {
+            $qb
+                ->andWhere('post.categorizedBy = :category')
+                ->setParameter('category', $post->getCategorizedBy())
+            ;
+        } else {
+            $qb->andWhere('post.categorizedBy IS NULL');
+        }
+
+        return $qb
+            ->andWhere('post <> :post')
+            ->setMaxResults(self::POST_LIMIT)
+            ->getQuery()
+            ->setParameter('post', $post)
+            ->getResult()
+        ;
+    }
+
     public function createQueryBuilder($alias, $indexBy = null)
     {
         return

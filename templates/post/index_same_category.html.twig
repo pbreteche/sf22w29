@@ -1,0 +1,8 @@
+<aside>
+    <h2>Articles associés</h2>
+    <ul>
+        {% for post in posts %}
+            <li><a href="{{ path('app_post_show', {id: post.id}) }}">{{ post.title|u.truncate(64, '...') }}</a></li>
+        {% endfor %}
+    </ul>
+</aside>

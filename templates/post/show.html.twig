@@ -7,6 +7,9 @@
     <div>Catégorie : {{ post.categorizedBy.name | default('sans') }}</div>
     <div>{{ post.body }}</div>
 </article>
+<div class="side-column">
+    {{ render(controller('App\\Controller\\PostController::indexSameCategory', {post: post})) }}
+</div>
 {% endblock %}
 
 {% block title %}
