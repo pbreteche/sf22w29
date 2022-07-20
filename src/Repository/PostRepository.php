@@ -39,6 +39,21 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Post[]
+     */
+    public function searchByTitle(string $needle)
+    {
+        return $this
+            ->createQueryBuilder('post')
+            ->andWhere('post.title LIKE :pattern')
+            ->orderBy('post.createdAt', 'DESC')
+            ->getQuery()
+            ->setParameter('pattern', $needle.'%')
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */

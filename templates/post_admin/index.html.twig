@@ -5,6 +5,10 @@
 {% block body %}
 <div class="actions">
     <a href="{{ path('app_postadmin_add') }}">Ajouter</a>
+    {{ form_start(filter_form) }}
+    {{ form_widget(filter_form) }}
+    <button>Rechercher</button>
+    {{ form_end(filter_form) }}
 </div>
 
 <table class="data-list">

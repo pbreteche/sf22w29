@@ -7,7 +7,7 @@ use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,10 +20,24 @@ class PostAdminController extends AbstractController
     /**
      * @Route("/", methods="GET")
      */
-    public function index(PostRepository $postRepository): Response
+    public function index(Request $request, PostRepository $postRepository): Response
     {
+        $filterForm = $this->createFormBuilder(null, [
+            'method' => 'GET',
+            'csrf_protection' => false,
+        ])
+            ->add('search', TextType::class, [
+                'required' => false,
+            ])
+            ->getForm()
+        ;
+        $filterForm->handleRequest($request);
+
+        $posts = $postRepository->searchByTitle($filterForm->get('search')->getData() ?? '');
+
         return $this->render('post_admin/index.html.twig', [
-            'posts' => $postRepository->findAll(),
+            'posts' => $posts,
+            'filter_form' => $filterForm->createView(),
         ]);
     }
 
