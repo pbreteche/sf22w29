@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Service\DemoService;
+use App\Validator\WellFormedTitle;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,6 +34,9 @@ class PostAdminController extends AbstractController
         ])
             ->add('search', TextType::class, [
                 'required' => false,
+                'constraints' => [
+                    new WellFormedTitle(), // non utilisé ici, car on ne valide pas ce formulaire
+                ]
             ])
             ->getForm()
         ;
