@@ -2,10 +2,24 @@
 
 namespace App\Service;
 
+use Psr\Log\LoggerInterface;
+
 class DemoService
 {
-    public function sayHello(): void
+    /** @var LoggerInterface */
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
     {
-        dump('hello');
+        $this->logger = $logger;
+    }
+
+    public function sayHello(bool $log=false): void
+    {
+        if ($log) {
+            $this->logger->debug('hello');
+        } else {
+            dump('hello');
+        }
     }
 }
