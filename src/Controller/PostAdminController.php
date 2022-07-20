@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Service\DemoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,8 +21,12 @@ class PostAdminController extends AbstractController
     /**
      * @Route("/", methods="GET")
      */
-    public function index(Request $request, PostRepository $postRepository): Response
-    {
+    public function index(
+        Request $request,
+        PostRepository $postRepository,
+        DemoService $demo
+    ): Response {
+        $demo->sayHello();
         $filterForm = $this->createFormBuilder(null, [
             'method' => 'GET',
             'csrf_protection' => false,
