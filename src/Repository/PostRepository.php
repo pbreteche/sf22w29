@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -52,6 +54,21 @@ class PostRepository extends ServiceEntityRepository
             ->setParameter('pattern', $needle.'%')
             ->getResult()
         ;
+    }
+
+    /**
+     * @return Post[]
+     */
+    public function searchByTitleDQL(string $needle)
+    {
+       return $this->getEntityManager()->createQuery(
+           'SELECT post FROM '.Post::class.' post '.
+           'WHERE post.title LIKE :pattern '.
+           'ORDER BY post.createdAt DESC'
+       )
+           ->setParameter('pattern', $needle.'%')
+           ->getResult()
+       ;
     }
 
 //    /**

@@ -33,7 +33,7 @@ class PostAdminController extends AbstractController
         ;
         $filterForm->handleRequest($request);
 
-        $posts = $postRepository->searchByTitle($filterForm->get('search')->getData() ?? '');
+        $posts = $postRepository->searchByTitleDQL($filterForm->get('search')->getData() ?? '');
 
         return $this->render('post_admin/index.html.twig', [
             'posts' => $posts,
