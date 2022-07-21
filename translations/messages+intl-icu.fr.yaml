@@ -27,8 +27,8 @@ data:
             label: Catégorie
 
         authoring:
-            published_by: Créé le %date% par %email%
-            categorized: 'Catégorie : %cat%'
+            published_by: Créé le {date} par {email}
+            categorized: 'Catégorie : {cat}'
 
         event:
             creation: Une nouvelle publication a été enregistrée.
