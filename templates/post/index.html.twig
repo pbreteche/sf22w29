@@ -7,7 +7,9 @@
 {% block body %}
 <div>
     <h1>{{ title }}</h1>
-    <p>Retrouvez nos {{ posts|length }} publications.</p>
+    <p>{{ 'page.post_index.teaser'|trans({
+            count: posts|length,
+        }) }}</p>
     <ul>
         {% for post in posts %}
             {# Attention, fonctionne comme un foreach en PHP #}

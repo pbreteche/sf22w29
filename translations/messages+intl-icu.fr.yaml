@@ -4,6 +4,16 @@ page_title:
     default: Bienvenue sur notre Blog !
     admin:
         index: Gestion des publications
+
+page:
+    post_index:
+        teaser: >-
+            {count, plural,
+                =0 {Retrouvez nos publications, mais plus tard.}
+                one {Retrouvez notre magnifique publication.}
+                other {Retrouver toutes nos # publications.}
+            }
+
 action:
     add: Ajouter
     publish: Publier
