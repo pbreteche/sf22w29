@@ -31,4 +31,11 @@
     </nav>
     {% endif %}
 </div>
+    <p>
+        {{ 'demo.select'|trans({
+            'invitee_gender': 'female',
+            'organizer_name': 'Jean-Pierre',
+        }) }}
+    </p>
+
 {% endblock %}

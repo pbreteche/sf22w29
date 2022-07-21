@@ -33,3 +33,11 @@ data:
         event:
             creation: Une nouvelle publication a été enregistrée.
             update:   Une publication a été mise-à-jour.
+
+demo:
+    select: >-
+            {invitee_gender, select,
+                female   {{organizer_name} vous a invitée à sa fête!}
+                male     {{organizer_name} vous a invité à sa fête!}
+                other    {{organizer_name} vous a invité à sa fête!}
+            }
