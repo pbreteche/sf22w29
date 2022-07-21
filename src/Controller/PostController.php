@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -43,6 +44,7 @@ class PostController extends AbstractController
         ]);
 
         $violations = $validator->validate($post);
+        $violations = $validator->validate('test@dawan.fr', new Email());
         $violations = $validator->validateProperty($post, 'title');
 
         return $this->render('post/show.html.twig', [
