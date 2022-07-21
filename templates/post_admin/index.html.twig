@@ -23,10 +23,10 @@
         <tr>
             <td>{{ post.id }}</td><td>{{ post.title }}</td><td>{{ post.createdAt | date('Y-m-d') }}</td>
             <td>
-                {% if is_granted('POST_EDIT', post) %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('POST_EDIT', post) %}
                     <a href="{{ path('app_postadmin_update', {id: post.id}) }}">Modifier</a>
                 {% endif %}
-                {% if is_granted('POST_DELETE', post) %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('POST_DELETE', post) %}
                     <a href="{{ path('app_postadmin_delete', {id: post.id}) }}">Supprimer</a>
                 {% endif %}
             </td>

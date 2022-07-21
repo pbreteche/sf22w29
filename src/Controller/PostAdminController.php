@@ -10,6 +10,7 @@ use App\Service\DemoService;
 use App\Validator\WellFormedTitle;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +21,7 @@ use Symfony\Component\Validator\Constraints\EqualTo;
 
 /**
  * @Route("/admin/post")
+ * @IsGranted("ROLE_AUTHOR")
  */
 class PostAdminController extends AbstractController
 {
@@ -88,7 +90,7 @@ class PostAdminController extends AbstractController
 
     /**
      * @Route("/edit/{id}", methods={"GET", "POST"})
-     * @IsGranted("POST_EDIT", subject="post")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('POST_EDIT', post)")
      */
     public function update(Post $post, Request $request, EntityManagerInterface $manager): Response
     {
@@ -109,7 +111,7 @@ class PostAdminController extends AbstractController
 
     /**
      * @Route("/delete/{id}", methods={"GET", "POST"})
-     * @IsGranted("POST_DELETE", subject="post")
+     * @Security("is_granted('ROLE_ADMIN') or is_granted('POST_DELETE', post)")
      */
     public function delete(Post $post, Request $request, PostRepository $postRepository)
     {
