@@ -4,7 +4,7 @@
 <article>
     <h1>{{ post.title }}</h1>
     <div>{{ 'data.post.authoring.published_by'|trans({
-            'date': post.createdAt | date('m/d/Y'),
+            'date': post.createdAt,
             'email': post.writtenBy.email
         }) }}</div>
     <div>{{ 'data.post.authoring.categorized'|trans({

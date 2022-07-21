@@ -26,7 +26,7 @@
     <tbody>
     {% for post in posts %}
         <tr>
-            <td>{{ post.id }}</td><td>{{ post.title }}</td><td>{{ post.createdAt | date('Y-m-d') }}</td>
+            <td>{{ post.id }}</td><td>{{ post.title }}</td><td>{{ post.createdAt|format_datetime('short') }}</td>
             <td>
                 {% if is_granted('ROLE_ADMIN') or is_granted('POST_EDIT', post) %}
                     <a href="{{ path('app_postadmin_update', {id: post.id}) }}">{{ 'action.edit'|trans }}</a>
