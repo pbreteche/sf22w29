@@ -1,0 +1,15 @@
+page_title:
+    default: Bienvenue sur notre Blog !
+    admin:
+        index: Gestion des publications
+action:
+    add: Ajouter
+
+data:
+    post:
+        id:
+            label: id
+        title:
+            label: Titre
+        created_at:
+            label: Date de création
