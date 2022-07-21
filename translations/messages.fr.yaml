@@ -13,3 +13,5 @@ data:
             label: Titre
         created_at:
             label: Date de création
+
+        authoring: Créé le %date% par %email%
