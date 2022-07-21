@@ -1,3 +1,5 @@
+none: sans
+
 page_title:
     default: Bienvenue sur notre Blog !
     admin:
@@ -24,7 +26,10 @@ data:
         categorizedBy:
             label: Catégorie
 
-        authoring: Créé le %date% par %email%
+        authoring:
+            published_by: Créé le %date% par %email%
+            categorized: 'Catégorie : %cat%'
+
         event:
             creation: Une nouvelle publication a été enregistrée.
             update:   Une publication a été mise-à-jour.

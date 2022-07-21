@@ -3,11 +3,13 @@
 {% block body %}
 <article>
     <h1>{{ post.title }}</h1>
-    <div>{{ 'data.post.authoring'|trans({
+    <div>{{ 'data.post.authoring.published_by'|trans({
             '%date%': post.createdAt | date('m/d/Y'),
             '%email%': post.writtenBy.email
         }) }}</div>
-    <div>Catégorie : {{ post.categorizedBy.name | default('sans') }}</div>
+    <div>{{ 'data.post.authoring.categorized'|trans({
+            '%cat%': post.categorizedBy.name | default('none'|trans)
+        }) }}</div>
     <div>{{ post.body }}</div>
 </article>
 <div class="side-column">
