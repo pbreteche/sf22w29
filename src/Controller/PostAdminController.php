@@ -27,16 +27,7 @@ class PostAdminController extends AbstractController
         PostRepository $postRepository,
         DemoService $demo
     ): Response {
-        // En une seule instruction
-        $this->denyAccessUnlessGranted("ROLE_ADMIN");
-        // Idem, explicité avec une structure "if"
-        if (!$this->isGranted("ROLE_ADMIN")) {
-            $this->addFlash('warning', 'Vous avez essayé de ...');
-            throw $this->createAccessDeniedException();
-        }
-        if ($this->isGranted("ROLE_ADMIN")) {
-            $demo->sayHello();
-        }
+        $demo->sayHello();
         $filterForm = $this->createFormBuilder(null, [
             'method' => 'GET',
             'csrf_protection' => false,
