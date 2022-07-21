@@ -89,6 +89,12 @@ class PostAdminController extends AbstractController
      */
     public function update(Post $post, Request $request, EntityManagerInterface $manager): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($post->getWrittenBy() !== $user) {
+            $this->createAccessDeniedException();
+        }
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
