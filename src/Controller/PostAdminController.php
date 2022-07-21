@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\EqualTo;
+use function Symfony\Component\Translation\t;
 
 /**
  * @Route("/admin/post")
@@ -64,8 +65,10 @@ class PostAdminController extends AbstractController
     /**
      * @Route("/new", methods={"GET", "POST"})
      */
-    public function add(Request $request, PostRepository $repository): Response
-    {
+    public function add(
+        Request $request,
+        PostRepository $repository
+    ): Response {
         /** @var User $user */
         $user = $this->getUser();
         if (!$user) {
@@ -78,7 +81,7 @@ class PostAdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->add($post, true);
-            $this->addFlash('success', 'Une nouvelle publication a été enregistrée.');
+            $this->addFlash('success', t('data.post.event.creation'));
 
             return $this->redirectToRoute('app_postadmin_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -92,14 +95,18 @@ class PostAdminController extends AbstractController
      * @Route("/edit/{id}", methods={"GET", "POST"})
      * @Security("is_granted('ROLE_ADMIN') or is_granted('POST_EDIT', post)")
      */
-    public function update(Post $post, Request $request, EntityManagerInterface $manager): Response
+    public function update(
+        Post $post,
+        Request $request,
+        EntityManagerInterface $manager
+    ): Response
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush($post);
-            $this->addFlash('success', 'Une publication a été mise-à-jour.');
+            $this->addFlash('success', t('data.post.event.update'));
 
             return $this->redirectToRoute('app_postadmin_index', [], Response::HTTP_SEE_OTHER);
         }

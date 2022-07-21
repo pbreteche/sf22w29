@@ -15,3 +15,6 @@ data:
             label: Date de création
 
         authoring: Créé le %date% par %email%
+        event:
+            creation: Une nouvelle publication a été enregistrée.
+            update:   Une publication a été mise-à-jour.
