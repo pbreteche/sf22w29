@@ -9,6 +9,7 @@ use App\Repository\PostRepository;
 use App\Service\DemoService;
 use App\Validator\WellFormedTitle;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,15 +87,10 @@ class PostAdminController extends AbstractController
 
     /**
      * @Route("/edit/{id}", methods={"GET", "POST"})
+     * @IsGranted("POST_EDIT", subject="post")
      */
     public function update(Post $post, Request $request, EntityManagerInterface $manager): Response
     {
-        /** @var User $user */
-        $user = $this->getUser();
-        if ($post->getWrittenBy() !== $user) {
-            $this->createAccessDeniedException();
-        }
-
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
