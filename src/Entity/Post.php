@@ -44,6 +44,12 @@ class Post
      */
     private $categorizedBy;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $writtenBy;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,14 +84,6 @@ class Post
         return $this->createdAt;
     }
 
-    /**
-     * @Assert\IsTrue(message="Body should be twice longer than title.")
-     */
-    public function isBodyTwiceLongerThanTitle(): bool
-    {
-        return mb_strlen($this->body) / mb_strlen($this->title) > 2;
-    }
-
     public function getCategorizedBy(): ?Category
     {
         return $this->categorizedBy;
@@ -96,6 +94,26 @@ class Post
         $this->categorizedBy = $categorizedBy;
 
         return $this;
+    }
+
+    public function getWrittenBy(): ?User
+    {
+        return $this->writtenBy;
+    }
+
+    public function setWrittenBy(?User $writtenBy): self
+    {
+        $this->writtenBy = $writtenBy;
+
+        return $this;
+    }
+
+    /**
+     * @Assert\IsTrue(message="Body should be twice longer than title.")
+     */
+    public function isBodyTwiceLongerThanTitle(): bool
+    {
+        return mb_strlen($this->body) / mb_strlen($this->title) > 2;
     }
 
     /**
