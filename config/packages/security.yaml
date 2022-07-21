@@ -22,6 +22,7 @@ security:
                 path: app_security_logout
                 # where to redirect after logout
                 target: app_post_index
+            switch_user: { role: ROLE_ALLOWED_TO_SWITCH }
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -36,7 +37,7 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
 
     role_hierarchy:
-        ROLE_ADMIN: ROLE_AUTHOR
+        ROLE_ADMIN: [ROLE_AUTHOR, ROLE_ALLOWED_TO_SWITCH]
 
 when@test:
     security:
