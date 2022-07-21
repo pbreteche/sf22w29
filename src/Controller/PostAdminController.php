@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Service\DemoService;
@@ -61,7 +62,13 @@ class PostAdminController extends AbstractController
      */
     public function add(Request $request, PostRepository $repository): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException();
+        }
         $post = new Post();
+        $post->setWrittenBy($user);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 

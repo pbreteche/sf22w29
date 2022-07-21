@@ -101,7 +101,7 @@ class Post
         return $this->writtenBy;
     }
 
-    public function setWrittenBy(?User $writtenBy): self
+    public function setWrittenBy(User $writtenBy): self
     {
         $this->writtenBy = $writtenBy;
 

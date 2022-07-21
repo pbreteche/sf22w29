@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="actions">
-    {% if not is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('app_postadmin_add') }}">Ajouter</a>
     {% endif %}
     {{ form_start(filter_form) }}
