@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\EqualTo;
 
 /**
  * @Route("/admin/post")
@@ -103,6 +104,33 @@ class PostAdminController extends AbstractController
 
         return $this->renderForm('post_admin/edit.html.twig', [
             'edit_form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", methods={"GET", "POST"})
+     * @IsGranted("POST_DELETE", subject="post")
+     */
+    public function delete(Post $post, Request $request, PostRepository $postRepository)
+    {
+        $form = $this->createFormBuilder()
+            ->add('title', TextType::class, [
+                'help' => 'Recopier le titre suivant : '.$post->getTitle(),
+                'constraints' => new EqualTo($post->getTitle())
+            ])
+        ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $postRepository->remove($post, true);
+            $this->addFlash('success', 'La publication a été supprimée.');
+
+            return $this->redirectToRoute('app_postadmin_index');
+        }
+
+        return $this->renderForm('post_admin/delete.html.twig', [
+            'post' => $post,
+            'form' => $form,
         ]);
     }
 }

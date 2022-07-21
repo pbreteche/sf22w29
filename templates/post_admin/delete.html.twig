@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p>
+        Vous êtes sur le point de supprimer la publication « {{ post.title }} ».<br>
+        Cette opération est définitive.
+    </p>
+
+    {{ include('post_admin/_form.html.twig', {button_text: 'Confirmer la suppression'}) }}
+{% endblock %}
