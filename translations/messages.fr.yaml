@@ -4,6 +4,11 @@ page_title:
         index: Gestion des publications
 action:
     add: Ajouter
+    publish: Publier
+    edit: Éditer
+    update: Mettre-à-jour
+    delete: Supprimer
+    confirm: Confirmer
 
 data:
     post:
@@ -11,8 +16,13 @@ data:
             label: id
         title:
             label: Titre
+            help:  Définir un titre précis et non-ambigüe.
+        body:
+            label: Corps
         created_at:
             label: Date de création
+        categorizedBy:
+            label: Catégorie
 
         authoring: Créé le %date% par %email%
         event:

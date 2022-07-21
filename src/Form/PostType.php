@@ -16,8 +16,7 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title', null, [
-                'label' => 'Titre',
-                'help' => 'Définir un titre précis et non-ambigüe.'
+                'help' => 'data.post.title.help'
             ])
             ->add('body', TextareaType::class, [
                 'attr' => [
@@ -44,6 +43,7 @@ class PostType extends AbstractType
             'data_class' => Post::class,
             'with_creation' => false,
             'validation_groups' => ['draft', 'Default'],
+            'label_format' => 'data.post.%name%.label',
         ]);
     }
 }
