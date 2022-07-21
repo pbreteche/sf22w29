@@ -8,6 +8,7 @@ use App\Repository\PostRepository;
 use App\Service\DemoService;
 use App\Validator\WellFormedTitle;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/admin/post")
+ * @IsGranted("ROLE_ADMIN")
  */
 class PostAdminController extends AbstractController
 {
     /**
      * @Route("/", methods="GET")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(
         Request $request,
