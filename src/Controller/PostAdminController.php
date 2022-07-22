@@ -6,7 +6,7 @@ use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
-use App\Service\DemoService;
+use App\Service\DemoServiceInterface;
 use App\Validator\WellFormedTitle;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -32,7 +32,7 @@ class PostAdminController extends AbstractController
     public function index(
         Request $request,
         PostRepository $postRepository,
-        DemoService $demo
+        DemoServiceInterface $demo
     ): Response {
         $user = $this->getUser();
         if ($user instanceof UserInterface) {

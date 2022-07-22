@@ -4,7 +4,7 @@ namespace App\Service;
 
 use Psr\Log\LoggerInterface;
 
-class DemoService
+class DemoService implements DemoServiceInterface
 {
     /** @var LoggerInterface */
     private $logger;
