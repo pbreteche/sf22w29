@@ -21,6 +21,8 @@ class PostController extends AbstractController
      */
     public function index(Request $request, PostRepository $postRepository): Response
     {
+        $request->setLocale('de');
+        dump($request->getLocale());
         $pageNumber = $request->query->get('p', 1);
         $posts = $postRepository->findLatest($pageNumber, $maxPage);
 
