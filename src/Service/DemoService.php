@@ -8,18 +8,28 @@ class DemoService
 {
     /** @var LoggerInterface */
     private $logger;
+    /** @var string */
+    private $prefix;
 
-    public function __construct(LoggerInterface $logger)
+    public  $suffix;
+
+    public function __construct(string $prefix, LoggerInterface $logger)
     {
         $this->logger = $logger;
+        $this->prefix = $prefix;
+    }
+
+    public function init(int $value)
+    {
+        dump($value);
     }
 
     public function sayHello(bool $log=false): void
     {
         if ($log) {
-            $this->logger->debug('hello');
+            $this->logger->debug($this->prefix.' hello '.$this->suffix);
         } else {
-            dump('hello');
+            dump($this->prefix.' hello '.$this->suffix);
         }
     }
 }
