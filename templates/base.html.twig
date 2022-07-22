@@ -14,6 +14,7 @@
         {% endblock %}
     </head>
     <body>
+    {{ render(controller('App\\Controller\\LocaleController::index')) }}
         {% block flash_messages %}
             {% for label, messages in app.flashes %}
                 {% for message in messages %}

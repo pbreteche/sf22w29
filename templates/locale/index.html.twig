@@ -1,0 +1,11 @@
+<nav>
+    <ul>
+        {% for locale in locales %}
+        <li>
+            <a href="{{ path('app_locale_select', {locale: locale, path: path}) }}">
+                {{ locale|language_name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
