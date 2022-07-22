@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
+use App\Mailer\PostMailer;
 use App\Repository\PostRepository;
 use App\Service\DemoServiceInterface;
 use App\Validator\WellFormedTitle;
@@ -67,7 +68,8 @@ class PostAdminController extends AbstractController
      */
     public function add(
         Request $request,
-        PostRepository $repository
+        PostRepository $repository,
+        PostMailer $mailer
     ): Response {
         /** @var User $user */
         $user = $this->getUser();
@@ -82,6 +84,7 @@ class PostAdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->add($post, true);
             $this->addFlash('success', t('data.post.event.creation'));
+            $mailer->send();
 
             return $this->redirectToRoute('app_postadmin_index', [], Response::HTTP_SEE_OTHER);
         }
