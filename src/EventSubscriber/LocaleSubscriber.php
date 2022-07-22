@@ -7,7 +7,17 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class LocaleSubscriber implements EventSubscriberInterface
 {
-    public function onKernelRequest(RequestEvent $event): void
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            'kernel.request' => [
+                ['fromAcceptLanguageHeader', 96],
+                ['fromUserSession', 24],
+            ]
+        ];
+    }
+
+    public function fromAcceptLanguageHeader(RequestEvent $event): void
     {
         $request = $event->getRequest();
         $preferred = $request->getPreferredLanguage(['en', 'fr']);
@@ -17,10 +27,13 @@ class LocaleSubscriber implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents(): array
+    public function fromUserSession(RequestEvent $event): void
     {
-        return [
-            'kernel.request' => ['onKernelRequest', 96],
-        ];
+        $request = $event->getRequest();
+        $sessionLocale = $request->getSession()->get('user.locale');
+
+        if ($sessionLocale) {
+            $request->setLocale($sessionLocale);
+        }
     }
 }

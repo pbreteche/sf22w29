@@ -1,0 +1,53 @@
+none: none
+
+page_title:
+    default: Welcome to our Blog !
+    admin:
+        index: Post management
+
+page:
+    post_index:
+        teaser: >-
+            {count, plural,
+                =0 {Retrouvez nos publications, mais plus tard.}
+                one {Retrouvez notre magnifique publication.}
+                other {Retrouver toutes nos # publications.}
+            }
+
+action:
+    add: Add
+    publish: Publish
+    edit: Edit
+    update: Update
+    delete: Delete
+    confirm: Confirm
+
+data:
+    post:
+        id:
+            label: id
+        title:
+            label: Title
+            help:  Définir un titre précis et non-ambigüe.
+        body:
+            label: Body
+        created_at:
+            label: Creation date
+        categorizedBy:
+            label: Category
+
+        authoring:
+            published_by: Created on {date, date, full}, {date, time, short} by {email}
+            categorized: 'Category: {cat}'
+
+        event:
+            creation: New post created.
+            update:   Post updated.
+
+demo:
+    select: >-
+            {invitee_gender, select,
+                female   {{organizer_name} vous a invitée à sa fête!}
+                male     {{organizer_name} vous a invité à sa fête!}
+                other    {{organizer_name} vous a invité à sa fête!}
+            }
