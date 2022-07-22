@@ -29,6 +29,11 @@ class Profile
     private $lastName;
 
     /**
+     * @ORM\Column
+     */
+    private $email;
+
+    /**
      * @var User
      */
     private $user;
@@ -58,6 +63,30 @@ class Profile
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
         return $this;
     }
 }

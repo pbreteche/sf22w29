@@ -32,3 +32,10 @@ services:
     # Nécessaire si l'interface est implémentée par plusieurs classes
     App\Service\DemoServiceInterface:
         alias: App\Service\DemoService
+
+    App\EntityListener\ProfileListener:
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postLoad'
+                entity: 'App\EntityExtra\Profile'

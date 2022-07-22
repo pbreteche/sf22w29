@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ProfileRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,5 +56,17 @@ class HelloWorldController extends AbstractController
         $request->getSession()->set('param', $currentParam);
 
         return new Response('<ul><li>Valeur courante:'.$currentParam.'</li><li>'.$previousParam.'</li></ul></body>');
+    }
+
+    /**
+     * @Route("/multi-database")
+     */
+    public function multiDatabase(ProfileRepository $profileRepository): Response
+    {
+        $profile = $profileRepository->find(1);
+
+        dump($profile);
+
+        return new Response('<body></body>');
     }
 }
