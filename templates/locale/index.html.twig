@@ -2,7 +2,7 @@
     <ul>
         {% for locale in locales %}
         <li>
-            <a href="{{ path('app_locale_select', {locale: locale, path: path}) }}">
+            <a href="{{ path('app_locale_select', {locale: locale}) }}">
                 {{ locale|language_name }}
             </a>
         </li>

@@ -4,19 +4,15 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LocaleController extends AbstractController
 {
-    public function index(RequestStack $stack): Response
+    public function index(): Response
     {
-        $path = $stack->getMainRequest()->getUri();
-
         return $this->render('locale/index.html.twig', [
             'locales' => ['en', 'fr'],
-            'path' => $path,
         ]);
     }
 

@@ -12,7 +12,10 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @Route("/post", methods="GET")
+ * @Route({
+ *     "en": "/post",
+ *     "fr": "/publi",
+ * }, methods="GET")
  */
 class PostController extends AbstractController
 {
@@ -52,7 +55,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    public function indexSameCategory(Post $post, PostRepository $repository)
+    public function indexSameCategory(Post $post, PostRepository $repository): Response
     {
         $posts = $repository->sameCategory($post);
 
