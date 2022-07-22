@@ -6,11 +6,13 @@ use App\Entity\Post;
 use App\Repository\PostRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 /**
  * @Route({
@@ -42,7 +44,8 @@ class PostController extends AbstractController
     public function show(
         Request $request,
         Post $post,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        AdapterInterface $cache
     ): Response {
         $response = new Response();
         $response
@@ -64,6 +67,14 @@ class PostController extends AbstractController
         $violations = $validator->validate($post);
         $violations = $validator->validate('test@dawan.fr', new Email());
         $violations = $validator->validateProperty($post, 'title');
+
+        $cachedData = $cache->get('app.my-cache-key', function (ItemInterface $item) {
+            $item->expiresAfter(3600);
+
+            $data = 'test';
+
+            return $data;
+        });
 
         return $this->render('post/show.html.twig', [
             'post' => $post,
