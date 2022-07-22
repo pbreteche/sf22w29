@@ -3,13 +3,19 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+
+# permet de factoriser des valeurs de config
 parameters:
+    prefix_param: 'depuis les paramètres'
 
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+        bind:
+            $prefix: '%prefix_param%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -22,14 +28,3 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    App\Service\DemoService:
-        class: App\Service\DemoService # inutile ici, car l'id du service est déjà un FQN
-        arguments: [prefix]
-        # De préférence, utiliser uniquement le constructeur pour paramétrer le service
-        # Si utilisation d'une classe éditer par un tiers (bibliothèque)
-        # Il peut être nécessaire d'appeler des méthodes ou affecter des propriétés
-        calls:
-            - ['init', [123]]
-        properties:
-            suffix: un suffixe
