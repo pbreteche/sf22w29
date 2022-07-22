@@ -40,9 +40,22 @@ class PostController extends AbstractController
      * @Cache(public=true, expires="tomorrow midnight", lastModified="post.getCreatedAt()")
      */
     public function show(
+        Request $request,
         Post $post,
         ValidatorInterface $validator
     ): Response {
+        $response = new Response();
+        $response
+            ->setPublic()
+            ->setExpires(new \DateTimeImmutable('tomorrow midnight'))
+            ->setLastModified($post->getCreatedAt())
+            ->setEtag(md5($post->getBody()))
+            ->headers->addCacheControlDirective('no-store')
+        ;
+        if ($response->isNotModified($request)) {
+            // Si non modifié, le statut de la réponse est passé à 304 NOT MODIFIED
+            return $response;
+        }
         // Non utilisé, juste pour l'exemple
         $subResponse = $this->forward(self::class.'::indexSameCategory', [
             'post' => $post,
@@ -54,7 +67,7 @@ class PostController extends AbstractController
 
         return $this->render('post/show.html.twig', [
             'post' => $post,
-        ]);
+        ], $response);
     }
 
     public function indexSameCategory(Post $post, PostRepository $repository): Response
